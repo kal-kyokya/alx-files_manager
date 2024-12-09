@@ -3,4 +3,3 @@ package.json
 babel.config.js
 package-lock.json
 .env
-.gitignore
