@@ -1,76 +1,71 @@
-require('dotenv').config();  // Retrieve variables from .env file
-const { createClient } = require('redis');
+// Importing the Redis client library
+import { createClient } from 'redis';
 
+// Importing promisify to convert callback-based functions into promises
+import { promisify } from 'util';
 
-// RedisClient class
+// RedisClient class to manage interactions with redis
 class RedisClient {
   constructor() {
-    try {
-    this.redisClient = createClient({
-      socket: {
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT
-      },
-    });
-    
+    this.client = createClient();
+
+    // Track if client is connected to Redis
+    this.isClientConnected = true;
+
     // Handle connection errors
-    this.redisClient.on('error', (err) => {
-      console.error('Could not connect to Redis:', err);
+    this.client.on('error', (err) => {
+      console.error(
+        'Redis client failed to connect:', err.message || err.toString(),
+      );
+      this.isClientConnected = false;
     });
-    } catch(err) {
-      console.error('Error initializing Redis client:', err);
-    }
+
+    // Set connection status to true when successfully connected
+    this.client.on('connect', () => {
+      this.isClientConnected = true;
+    });
   }
 
-  // Check if connection to Redis is successfull
-  async isAlive() {
-  try {
-    await this.redisClient.connect();
-    console.log('Connected to Redis');
-    return true;
-  } catch (err) {
-    console.error('Could not connect to Redis:', err);
-    return false;
-  }
+  /**
+   * Check if connection to Redis is alive
+   * @return {boolean} - Returns true if connected, false otherwise
+   */
+  isAlive() {
+    return this.isClientConnected;
   }
 
-  // Get value for key stored in Redis
+  /**
+   * Get value for key stored in Redis
+   * @param {string} key - The key to look up in Redis
+   * @returns {Promise<string|null>} - Value or null if key doesn't exist
+   */
   async get(key) {
-    try {
-      const value = await this.redisClient.get(key);
-    
-      if (value === null) {
-        console.error('Key not found or expired');
-        return null;
-      }
-      return value;
-      } catch (err) {
-        console.error('Error getting key:', err);
-        return null;
-      }
-    }
-  
-  // Store a key, value and  duration (in seconds) in Redis
-  async set(key, value, ttl) {
-    try { 
-      await this.redisClient.setEx(key, ttl, value);
-    } catch (err) {
-      console.error('Error getting key:', err);
-    }
+    return promisify(this.client.GET).bind(this.client)(key);
   }
 
-  // Remove a key stored in Redis
+  /**
+   * Store a key-value pair with expiration time ttl (in seconds)
+   * @param {string} key - The key to store
+   * @param {string} value - value to store
+   * @param {number} ttl - Duration/Time-to-live in seconds
+   * @returns {Promise<void>}
+   */
+  async set(key, value, ttl) {
+    await promisify(this.client.SETEX)
+      .bind(this.client)(key, ttl, value);
+  }
+
+  /**
+   * Remove a key stored in Redis
+   * @param {string} key - The key to delete
+   * @returns {Promise<void>}
+   */
   async del(key) {
-    try {
-    await this.redisClient.del(key);
-    } catch (err) {
-       console.error('Error getting key:', err)
-    }
+    await promisify(this.client.DEL).bind(this.client)(key);
   }
 }
-
 
 // Creating and exporting an instance of RedisClient
 const redisClient = new RedisClient();
 
-module.exports = redisClient;
+export default redisClient;
