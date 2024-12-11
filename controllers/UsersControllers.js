@@ -4,7 +4,7 @@
 import sha1 from 'sha1';
 import dbClient from '../utils/db';
 
-// Création de la class à exporter
+// Création de la classe à exporter
 export default class UsersController {
   // Create a static method (belongs to the class and not instances)
   static async postNew(req, res) {
