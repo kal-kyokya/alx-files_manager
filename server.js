@@ -1,5 +1,5 @@
 import express from 'express';
-import addRoutes './routes/index';
+import addRoutes from './routes/index';
 
 // Creating an instance of an Express appliction
 const app = express();
