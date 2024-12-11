@@ -1,6 +1,7 @@
 // Ce fichier contains the class 'DBClient' pour la manipulation de  MongoDB
 
 // Importation des modules dont on aura besoin
+// eslint-disable-next-line no-unused-vars
 import mongodb from 'mongodb';
 import Collection from 'mongodb/lib/collection';
 import envLoader from './env_loader';
