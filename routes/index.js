@@ -1,14 +1,22 @@
 import express from 'express';
-import { getStatus, getStats } from '../controllers/AppController';
-import UsersController from '../controllers/UsersController';
+import AppController from '../controllers/AppController';
+//import UsersController from '../controllers/UsersController';
 
 // Router instance
-const router = express.Router();
+function addRoutes(app) {
+  const route = express.Router();
+  app.use('/', router);
 
-router.get('/status', getStatus);
-router.get('/stats', getStats);
+  router.get('/status', (req, res) => {
+	  AppController.getStatus(req, res);
+  });
+
+  router.get('/stats', (req, res) => {
+	  AppController.getStats(req, res)
+  });
 
 // 'Endpoint' permettant la création ya 'user' wa mupya
-api.post('/users', UsersController.postNew);
+//api.post('/users', UsersController.postNew);
+};
 
-export default router;
+export default addRoutes;
