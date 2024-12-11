@@ -4,7 +4,7 @@ import AppController from '../controllers/AppController';
 
 // Router instance
 function addRoutes(app) {
-  const route = express.Router();
+  const router = express.Router();
   app.use('/', router);
 
   router.get('/status', (req, res) => {
