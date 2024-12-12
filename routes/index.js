@@ -1,6 +1,8 @@
+// This file adds all the routes needed by the
+// express app at the core of this project.
 import express from 'express';
 import AppController from '../controllers/AppController';
-//  import UsersController from '../controllers/UsersController';
+import UsersController from '../controllers/UsersControllers';
 
 /**
  * Function to add routes to the Express app
@@ -22,8 +24,11 @@ function addRoutes(app) {
   router.get('/stats', (req, res) => {
     AppController.getStats(req, res);
   });
+
+  // Route enabling creation of a new user
+  router.post('/users', (req, res) => {
+    UsersController.postNew(req, res);
+  });
 }
-// Route to add a new user
-// router.post('/users', UsersController.postNew);
 
 export default addRoutes;
