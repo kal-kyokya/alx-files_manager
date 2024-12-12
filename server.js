@@ -9,7 +9,7 @@ const PORT = process.env.port || 5000;
 // Middleware to parse JSON requests
 app.use(express.json());
 
-// Creating a router and passing it to `addRoutes`
+// Settting up routes by passing app instance to addRoutes function
 addRoutes(app);
 
 // Starting the server
