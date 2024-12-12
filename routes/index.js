@@ -10,7 +10,7 @@ function addRoutes(app) {
   // New router instance
   const router = express.Router();
 
-  // Mounting the touter on the '/' route
+  // Mounting the router on the '/' route
   app.use('/', router);
 
   // Route to check status of Redis and DB
