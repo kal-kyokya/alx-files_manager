@@ -20,10 +20,10 @@ function addRoutes(app) {
 
   // Route to stats (users and files)
   router.get('/stats', (req, res) => {
-    AppController.getStats(req, res)
+    AppController.getStats(req, res);
   });
 }
-  // Route to add a new user
-  // router.post('/users', UsersController.postNew);
+// Route to add a new user
+// router.post('/users', UsersController.postNew);
 
 export default addRoutes;
