@@ -1,7 +1,6 @@
 // Controller defining some endpoints
 
 import redisClient from '../utils/redis';
-// eslint-disable-next-line import/no-named-as-default
 import dbClient from '../utils/db';
 
 export default class AppController {
