@@ -12,7 +12,7 @@ app.use(express.json());
 // Creating a router and passing it to `addRoutes`
 addRoutes(app);
 
-// Startting the server
+// Starting the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
