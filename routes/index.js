@@ -22,7 +22,7 @@ function addRoutes(app) {
   router.get('/stats', (req, res) => {
     AppController.getStats(req, res)
   });
-
+}
   // Route to add a new user
   // router.post('/users', UsersController.postNew);
 
