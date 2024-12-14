@@ -29,11 +29,11 @@ export default class UsersController {
       return;
     }
 
-    // Créer user wa mupya via 2 opérations async zingine
+    // Create a new user via 2 async operations
     const insertionInfo = await (await dbClient.usersCollection())
       .insertOne({ email, password: sha1(password) });
 
-    // Extraction du 'ID' de notre 'user'
+    // Extraction of the new user's ID
     const userId = insertionInfo.insertedId.toString();
 
     res.status(201).json({ email, id: userId });
