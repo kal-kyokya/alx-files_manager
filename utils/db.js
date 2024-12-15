@@ -33,9 +33,14 @@ class DBClient {
     return this.client.db().collection('files').countDocuments();
   }
 
-  // This function returns the users collection
+  // This function returns the 'users' collection
   async usersCollection() {
     return this.client.db().collection('users');
+  }
+
+  // This function returns the 'files' collection
+  async filesCollection() {
+    return this.client.db().collection('files');
   }
 }
 

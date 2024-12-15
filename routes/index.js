@@ -29,6 +29,21 @@ function addRoutes(app) {
   router.post('/users', (req, res) => {
     UsersController.postNew(req, res);
   });
+
+  // Route enabling user Authentication
+  router.get('/connect', (req, res) => {
+    AuthController.getConnect(req, res);
+  });
+
+  // Route terminating user session
+  router.get('/disconnect', (req, res) => {
+    AuthController.getDisconnect(req, res);
+  });
+
+  // Route enabling retrieval based on Auth-token
+  router.get('/users/me', (req, res) => {
+    UsersController.getMe(req, res);
+  });
 }
 
 export default addRoutes;

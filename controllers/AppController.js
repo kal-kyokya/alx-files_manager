@@ -1,5 +1,6 @@
 // Controller defining some endpoints
 
+import redisClient from '../utils/redis';
 // eslint-disable-next-line import/no-named-as-default
 import dbClient from '../utils/db';
 
@@ -11,7 +12,7 @@ export default class AppController {
    */
   static getStatus(req, res) {
     const status = {
-      db: dbClient.isAlive(),
+      redis: redisClient.isAlive(), db: dbClient.isAlive()
     };
     res.status(200).send(status); // Send the status as a JSON response
   }
