@@ -4,6 +4,8 @@ import express from 'express';
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
+import FilesController from '../controllers/FilesController';
+import { basicAuth, xTokenAuth } from '../middlewares/auth';
 
 /**
  * Function to add routes to the Express app
@@ -32,18 +34,23 @@ function addRoutes(app) {
   });
 
   // Route enabling user Authentication
-  router.get('/connect', (req, res) => {
+  router.get('/connect', basicAuth, (req, res) => {
     AuthController.getConnect(req, res);
   });
 
   // Route terminating user session
-  router.get('/disconnect', (req, res) => {
+  router.get('/disconnect', xTokenAuth, (req, res) => {
     AuthController.getDisconnect(req, res);
   });
 
   // Route enabling retrieval based on Auth-token
-  router.get('/users/me', (req, res) => {
+  router.get('/users/me', xTokenAuth, (req, res) => {
     UsersController.getMe(req, res);
+  });
+
+  // Route enabling creation of a new file on Disk and DB
+  router.post('/files', xTokenAuth, (req, res) => {
+    FilesController.postUpload(req, res);
   });
 }
 
