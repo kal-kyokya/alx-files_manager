@@ -109,10 +109,10 @@ export default class FilesController {
       newFile.localPath = localPath;
     }
 
-    // const insertionInfo = await (await dbClient.filesCollection())
-    //   .insertOne(newFile);
-    //    const fileId = insertionInfo.insertedId.toString();
+    const insertionInfo = await (await dbClient.filesCollection())
+      .insertOne(newFile);
+    const fileId = insertionInfo.insertedId.toString();
 
-    res.status(201).json(newFile);
+    res.status(201).json({ id: filedId, ...newFile });
   }
 }
