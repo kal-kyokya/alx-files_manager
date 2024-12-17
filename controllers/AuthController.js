@@ -1,7 +1,7 @@
 // Controller file enabling User Authentication
 
 // eslint-disable import/no-named-as-default
-import { uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import redisClient from '../utils/redis';
 
 export default class AuthController {
