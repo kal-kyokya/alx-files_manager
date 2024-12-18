@@ -113,6 +113,6 @@ export default class FilesController {
       .insertOne(newFile);
     const fileId = insertionInfo.insertedId.toString();
 
-    res.status(201).json({ id: filedId, ...newFile });
+    res.status(201).json({ id: fileId, ...newFile });
   }
 }
