@@ -19,34 +19,22 @@ function addRoutes(app) {
   app.use('/', router);
 
   // Route to check status of Redis and DB
-  router.get('/status', (req, res) => {
-    AppController.getStatus(req, res);
-  });
+  router.get('/status', AppController.getStatus);
 
   // Route to stats (users and files)
-  router.get('/stats', (req, res) => {
-    AppController.getStats(req, res);
-  });
+  router.get('/stats', AppController.getStats);
 
   // Route enabling creation of a new user
-  router.post('/users', (req, res) => {
-    UsersController.postNew(req, res);
-  });
+  router.post('/users', UsersController.postNew);
 
   // Route enabling user Authentication
-  router.get('/connect', basicAuth, (req, res) => {
-    AuthController.getConnect(req, res);
-  });
+  router.get('/connect', basicAuth, AuthController.getConnect);
 
   // Route terminating user session
-  router.get('/disconnect', xTokenAuth, (req, res) => {
-    AuthController.getDisconnect(req, res);
-  });
+  router.get('/disconnect', xTokenAuth, AuthController.getDisconnect);
 
   // Route enabling retrieval based on Auth-token
-  router.get('/users/me', xTokenAuth, (req, res) => {
-    UsersController.getMe(req, res);
-  });
+  router.get('/users/me', xTokenAuth, UsersController.getMe);
 
   // Route enabling creation of a new file on Disk and DB
   router.post('/files', xTokenAuth, FilesController.postUpload);
