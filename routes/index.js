@@ -49,9 +49,7 @@ function addRoutes(app) {
   });
 
   // Route enabling creation of a new file on Disk and DB
-  router.post('/files', xTokenAuth, (req, res) => {
-    FilesController.postUpload(req, res);
-  });
+  router.post('/files', xTokenAuth, FilesController.postUpload);
 }
 
 export default addRoutes;
