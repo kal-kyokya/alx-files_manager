@@ -2,10 +2,10 @@
 // express app at the core of this project.
 import express from 'express';
 import AppController from '../controllers/AppController';
-import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
 import FilesController from '../controllers/FilesController';
 import { basicAuth, xTokenAuth } from '../middlewares/auth';
+import UsersController from '../controllers/UsersController';
 
 /**
  * Function to add routes to the Express app
@@ -15,28 +15,28 @@ function addRoutes(app) {
   // New router instance
   const router = express.Router();
 
-  // Mounting the router on the '/' route
+  // Mount the router on the '/' route
   app.use('/', router);
 
-  // Route to check status of Redis and DB
+  // Check status of Redis and MongoDB
   router.get('/status', AppController.getStatus);
 
-  // Route to stats (users and files)
+  // Query Stats (users & files collections)
   router.get('/stats', AppController.getStats);
 
-  // Route enabling creation of a new user
+  // Enable creation of a user
   router.post('/users', UsersController.postNew);
 
-  // Route enabling user Authentication
+  // Enable user Authentication
   router.get('/connect', basicAuth, AuthController.getConnect);
 
-  // Route terminating user session
+  // Terminate user session
   router.get('/disconnect', xTokenAuth, AuthController.getDisconnect);
 
-  // Route enabling retrieval based on Auth-token
+  // Retrieve user details
   router.get('/users/me', xTokenAuth, UsersController.getMe);
 
-  // Route enabling creation of a new file on Disk and DB
+  // Enable creation of a file on Disk and DB
   router.post('/files', xTokenAuth, FilesController.postUpload);
 }
 

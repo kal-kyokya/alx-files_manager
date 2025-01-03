@@ -1,12 +1,11 @@
-// This file contains the 'DBClient' class enabling MongoDB manipulation
+// File containing the 'DBClient' class enabling MongoDB interaction
 
-// Importing required modules
 // eslint-disable-next-line no-unused-vars
 import mongodb from 'mongodb';
 import envLoader from './env_loader';
 
 class DBClient {
-  // Function initializing new DBClient instances.
+  // Initialize new DBClient instances.
   constructor() {
     envLoader();
     const host = process.env.DB_HOST || 'localhost';
@@ -18,27 +17,27 @@ class DBClient {
     this.client.connect();
   }
 
-  // This function validates the client's connection
+  // Validate the client's connection
   isAlive() {
     return this.client.isConnected();
   }
 
-  // This function returns the number of users in the database
+  // Return the number of users in the database
   async nbUsers() {
     return this.client.db().collection('users').countDocuments();
   }
 
-  // This function returns the number of files in the database
+  // Return the number of files in the database
   async nbFiles() {
     return this.client.db().collection('files').countDocuments();
   }
 
-  // This function returns the 'users' collection
+  // Return the 'users' collection
   async usersCollection() {
     return this.client.db().collection('users');
   }
 
-  // This function returns the 'files' collection
+  // Return the 'files' collection
   async filesCollection() {
     return this.client.db().collection('files');
   }
