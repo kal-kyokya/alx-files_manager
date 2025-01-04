@@ -1,8 +1,8 @@
-// Collection of functions preprocessing 'req' object before the endpoint handler
+// Functions preprocessing the 'req' object for the endpoint handler
 
 import { getUserFromXToken, getUserFromAuthorization } from '../utils/auth';
 
-// Function applying Basic Authentication to a route
+// Function applying 'Basic Authentication' to the route
 export const basicAuth = async (req, res, next) => {
   const user = await getUserFromAuthorization(req);
 
@@ -15,7 +15,7 @@ export const basicAuth = async (req, res, next) => {
   next();
 };
 
-// Function applying Token-Based Authentication to a route
+// Function applying 'Token-Based Authentication' to the route
 export const xTokenAuth = async (req, res, next) => {
   const user = await getUserFromXToken(req);
 
